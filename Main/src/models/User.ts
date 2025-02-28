@@ -15,12 +15,19 @@ const userSchema = new Schema<IUser>(
             required: true,
             trimmed: true,
         },
-        {
         email: {
-            type: String;
+            type: String,
             required: true,
-
-            }
-        },
+            unique: true,
+            validate: {
+                validator: function (value) {
+                  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+                },
+                message: 'Invalid email address format',
+              },
+            },
+        thoughts: [Thought],
+        friends: [User],
+        
     }
 )
