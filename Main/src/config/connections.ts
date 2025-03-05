@@ -1,14 +1,11 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
 
-const db = async (): Promise<typeof mongoose.connection> =>{
-    try{
-        await mongoose.connect(process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/socialDB');
-        console.log('Database connected.');
-        return mongoose.connection;
-    } catch(error) {
-        console.error('Database connection error:', error);
-        throw new Error('Database connection failed.');
-    }
-}
+mongoose.connect('mongodb://localhost/social-network-api')
+  .then(() => {
+    console.log('Successfully connected to the database');
+  })
+  .catch((err) => {
+    console.error('Error connecting to the database', err);
+  });
 
-export default db;
+export default mongoose.connection;

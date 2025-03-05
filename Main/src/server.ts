@@ -1,16 +1,16 @@
 import express from 'express';
-import db from './config/connections';
+import routes from './routes/index.js'; 
+import db from './config/connections.js';
 
-await db();
-
-const PORT = process.env.PORT || 3001;
 const app = express();
+const PORT = process.env.PORT || 3001;
 
-app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use('/api', routes);
 
-app.use(routes);
-
-app.listen(PORT, () => {
-    console.log(`API server running on port ${PORT}`);
-})
+db.once('open', () => {
+  app.listen(PORT, () => {
+    console.log(`API server running on port ${PORT}!`);
+  });
+});
