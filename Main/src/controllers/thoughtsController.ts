@@ -45,7 +45,7 @@ export const createThought = async (req: Request, res: Response) => {
 
         const thought = await Thought.create({ thoughtText, username });
 
-        // Convert userId properly
+        
         const user = await User.findById(toObjectId(userId));
         if (!user) {
             return res.status(404).json({ message: 'User not found' });
@@ -98,7 +98,7 @@ export const deleteThought = async (req: Request, res: Response) => {
             return res.status(404).json({ message: 'Thought not found' });
         }
 
-        // Remove thought from associated user's thoughts array
+        
         await User.updateOne(
             { thoughts: toObjectId(req.params.id) },
             { $pull: { thoughts: toObjectId(req.params.id) } }

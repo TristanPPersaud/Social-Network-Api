@@ -96,7 +96,7 @@ export const addFriend = async (req: Request, res: Response) => {
         return res.status(404).json({ message: 'User not found' });
       }
   
-      // Filter out the friend by comparing ObjectId as a string
+   
       user.friends = user.friends.filter((id) => id.toString() !== friendId);
       await user.save();
   
